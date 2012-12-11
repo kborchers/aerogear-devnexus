@@ -1,0 +1,11 @@
+/* Will be compiled down to a single stylesheet with your sass files */
+
+.speaker-photo {
+    float: right;
+    margin: 5px;
+}
+
+.twitter-link {
+    float: right;
+    margin: 5px;
+}

@@ -1,0 +1,19 @@
+<div ng-include src="'views/top.html'"></div>
+<div class="accordion">
+    <div ng-repeat="speaker in speakers" class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#collapse-{{speaker.id}}">{{speaker.firstName}} {{speaker.lastName}}</a>
+        </div>
+        <div id="collapse-{{speaker.id}}" class="accordion-body collapse" ng-class="{in:$first}">
+            <div class="accordion-inner">
+                <div class="speaker-photo">
+                    <img src="http://devnexus.com/s/speakers/{{speaker.id}}.jpg"/>
+                    <div>
+                        <a href="http://twitter.com/{{speaker.twitterId}}" target="_blank" ng-hide="!speaker.twitterId" class="twitter-link"><img src="img/twitter-logo.png"/></a>
+                    </div>
+                </div>
+                {{speaker.bio}}
+            </div>
+        </div>
+    </div>
+</div>
