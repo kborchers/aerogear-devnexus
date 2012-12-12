@@ -4,22 +4,30 @@ var aerogearDevnexusApp = angular.module( "aerogearDevnexusApp", [])
         .config( [ "$routeProvider", function( $routeProvider ) {
             $routeProvider
                 .when( "/", {
-                    templateUrl: "views/main.html",
-                    controller: "MainCtrl"
+                    templateUrl: "views/home.html",
+                    controller: "HomeCtrl"
                 })
                 .when( "/speakers", {
                     templateUrl: "views/speakers.html",
-                    controller: "SpeakersCtrl"
+                    controller: "SpeakersPresentationsCtrl"
+                })
+                .when( "/speakers/:id", {
+                    templateUrl: "views/speakers.html",
+                    controller: "SpeakersPresentationsCtrl"
                 })
                 .when("/sessions", {
-                    templateUrl: "views/sessions.html",
-                    controller: "SessionsCtrl"
+                    templateUrl: "views/presentations.html",
+                    controller: "SpeakersPresentationsCtrl"
+                })
+                .when( "/sessions/:id", {
+                    templateUrl: "views/presentations.html",
+                    controller: "SpeakersPresentationsCtrl"
                 })
                 .otherwise({
                     redirectTo: "/"
                 });
         }])
-        .service( "speakerService", function() {
+        .service( "dataService", function() {
             return {
                 speakerPipe: AeroGear.Pipeline({
                     name: "speakers",
@@ -34,19 +42,15 @@ var aerogearDevnexusApp = angular.module( "aerogearDevnexusApp", [])
                     settings: {
                         storageType: "localStorage"
                     }
-                }).stores.speakers
-            };
-        })
-        .service( "sessionService", function() {
-            return {
-                sessionPipe: AeroGear.Pipeline({
+                }).stores.speakers,
+                presentationPipe: AeroGear.Pipeline({
                     name: "sessions",
                     settings: {
                         baseURL: "http://devnexus.com/s/",
                         endpoint: "presentations.json"
                     }
                 }).pipes.sessions,
-                sessionStore: AeroGear.DataManager({
+                presentationStore: AeroGear.DataManager({
                     name: "sessions",
                     type: "SessionLocal",
                     settings: {

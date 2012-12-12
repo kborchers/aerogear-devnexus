@@ -1,0 +1,16 @@
+<div ng-include src="'views/top.html'"></div>
+<div class="accordion">
+    <div ng-repeat="presentation in presentations" class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#collapse-{{presentation.id}}">{{presentation.title}}</a>
+        </div>
+        <div id="collapse-{{presentation.id}}" class="accordion-body collapse" ng-class="{in : open == presentation.id}">
+            <div class="accordion-inner">
+                {{presentation.description}}
+                <div>
+                    <br><strong>Presented by:</strong> <a href="#/speakers/{{presentation.speaker.id}}">{{presentation.speaker.firstName + " " + presentation.speaker.lastName}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
