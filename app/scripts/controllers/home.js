@@ -1,5 +1,5 @@
-'use strict';
+"use strict";
 
-aerogearDevnexusApp.controller('HomeCtrl', function($scope) {
+aerogearDevnexusApp.controller( "HomeCtrl", [ "$scope", function( $scope ) {
 
-});
+}]);

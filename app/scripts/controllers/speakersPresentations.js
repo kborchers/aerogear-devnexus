@@ -1,6 +1,6 @@
 "use strict";
 
-aerogearDevnexusApp.controller( "SpeakersPresentationsCtrl", function( $scope, $routeParams, $location, dataService ) {
+aerogearDevnexusApp.controller( "SpeakersPresentationsCtrl", [ "$scope", "$routeParams", "$location", "dataService", function( $scope, $routeParams, $location, dataService ) {
     var viewName, offlineData,
         // Offline Data expires after 1 hour
         expireTime = 3600000,
@@ -42,4 +42,4 @@ aerogearDevnexusApp.controller( "SpeakersPresentationsCtrl", function( $scope, $
             }
         });
     }
-});
+}]);
