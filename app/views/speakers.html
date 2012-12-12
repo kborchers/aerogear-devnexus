@@ -4,7 +4,7 @@
         <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#collapse-{{speaker.id}}">{{speaker.firstName}} {{speaker.lastName}}</a>
         </div>
-        <div id="collapse-{{speaker.id}}" class="accordion-body collapse" ng-class="{in : open == speaker.id}">
+        <div id="collapse-{{speaker.id}}" class="accordion-body collapse" ng-class="{in : open == speaker.id}" jump-to="open">
             <div class="accordion-inner">
                 <div class="speaker-photo">
                     <img src="http://devnexus.com/s/speakers/{{speaker.id}}.jpg"/>
