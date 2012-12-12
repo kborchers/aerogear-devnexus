@@ -37,7 +37,7 @@ aerogearDevnexusApp.controller( "SpeakersPresentationsCtrl", function( $scope, $
                     $scope[ viewName + "s" ] = offlineData[ 0 ][ viewName ];
                     $scope.$apply();
                 } else {
-                    console.log('error');
+                    $log('error');
                 }
             }
         });
