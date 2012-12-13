@@ -17,6 +17,9 @@ aerogearDevnexusApp.controller( "SpeakersPresentationsCtrl", [ "$scope", "$route
     // Set the open collapse panel
     $scope.open = $routeParams.id;
 
+    // Set the markdown converter
+    $scope.converter = new Markdown.Converter();
+
     if ( offlineData && offlineData.length && ( today - offlineData[ 0 ].saved ) < expireTime ) {
         $scope[ viewName + "s" ] = offlineData[ 0 ][ viewName ];
     } else {

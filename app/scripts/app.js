@@ -1,6 +1,6 @@
 "use strict";
 
-var aerogearDevnexusApp = angular.module( "aerogearDevnexusApp", [])
+var aerogearDevnexusApp = angular.module( "aerogearDevnexusApp", [ "ngSanitize" ])
         .config( [ "$routeProvider", function( $routeProvider ) {
             $routeProvider
                 .when( "/", {

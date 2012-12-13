@@ -6,7 +6,7 @@
         </div>
         <div id="collapse-{{presentation.id}}" class="accordion-body collapse" ng-class="{in : open == presentation.id}">
             <div class="accordion-inner">
-                {{presentation.description}}
+                <div ng-bind-html="converter.makeHtml(presentation.description)"></div>
                 <div>
                     <br><strong>Presented by:</strong> <a href="#/speakers/{{presentation.speaker.id}}">{{presentation.speaker.firstName + " " + presentation.speaker.lastName}}</a>
                 </div>

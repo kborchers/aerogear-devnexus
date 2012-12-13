@@ -12,7 +12,7 @@
                         <a href="http://twitter.com/{{speaker.twitterId}}" target="_blank" ng-hide="!speaker.twitterId" class="twitter-link"><img src="img/twitter-logo.png"/></a>
                     </div>
                 </div>
-                <div>{{speaker.bio}}</div>
+                <div ng-bind-html="converter.makeHtml(speaker.bio)"></div>
             </div>
         </div>
     </div>
