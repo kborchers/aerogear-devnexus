@@ -16,6 +16,13 @@ aerogearDevnexusApp.factory( "dataService", function() {
                 storageType: "localStorage"
             }
         }).stores.speakers,
+        speakerSaved: AeroGear.DataManager({
+            name: "speakerSaved",
+            type: "SessionLocal",
+            settings: {
+                storageType: "localStorage"
+            }
+        }).stores.speakerSaved,
         presentationPipe: AeroGear.Pipeline({
             name: "sessions",
             settings: {
@@ -29,6 +36,13 @@ aerogearDevnexusApp.factory( "dataService", function() {
             settings: {
                 storageType: "localStorage"
             }
-        }).stores.sessions
+        }).stores.sessions,
+        presentationSaved: AeroGear.DataManager({
+            name: "sessionSaved",
+            type: "SessionLocal",
+            settings: {
+                storageType: "localStorage"
+            }
+        }).stores.sessionSaved
     };
 });

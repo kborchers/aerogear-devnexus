@@ -1,7 +1,7 @@
 "use strict";
 
 aerogearDevnexusApp.controller( "SpeakersPresentationsCtrl", [ "$scope", "$routeParams", "$location", "dataService", function( $scope, $routeParams, $location, dataService ) {
-    var viewName, offlineData,
+    var viewName, offlineData, saved,
         // Offline Data expires after 1 hour
         expireTime = 3600000,
         today = (new Date()).getTime();
@@ -12,7 +12,8 @@ aerogearDevnexusApp.controller( "SpeakersPresentationsCtrl", [ "$scope", "$route
         viewName = "presentation";
     }
 
-    offlineData = dataService[ viewName + "Store" ].read(),
+    offlineData = dataService[ viewName + "Store" ].read();
+    saved = dataService[ viewName + "Saved" ].read();
 
     // Set the open collapse panel
     $scope.open = $routeParams.id;
@@ -20,8 +21,9 @@ aerogearDevnexusApp.controller( "SpeakersPresentationsCtrl", [ "$scope", "$route
     // Set the markdown converter
     $scope.converter = new Markdown.Converter();
 
-    if ( offlineData && offlineData.length && ( today - offlineData[ 0 ].saved ) < expireTime ) {
-        $scope[ viewName + "s" ] = offlineData[ 0 ][ viewName ];
+    // Update data
+    if ( offlineData && offlineData.length && ( today - saved[ 0 ] ) < expireTime ) {
+        $scope[ viewName + "s" ] = offlineData;
     } else {
         dataService[ viewName + "Pipe" ].read({
             jsonp: {
@@ -29,10 +31,9 @@ aerogearDevnexusApp.controller( "SpeakersPresentationsCtrl", [ "$scope", "$route
                 customCallback: "handleMatterhornData"
             },
             success: function( data ) {
-                var listData = data[ viewName + "List" ];
-                listData.saved = (new Date()).getTime();
-                dataService[ viewName + "Store" ].save( listData, { reset: true } );
-                $scope[ viewName + "s" ] = listData[ viewName ];
+                dataService[ viewName + "Store" ].save( data[ viewName + "List" ][ viewName ], { reset: true } );
+                dataService[ viewName + "Saved" ].save( (new Date()).getTime(), { reset: true } );
+                $scope[ viewName + "s" ] = data[ viewName + "List" ][ viewName ];
                 $scope.$apply();
             },
             error: function( data ) {
