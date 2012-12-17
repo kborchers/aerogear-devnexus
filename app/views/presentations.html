@@ -1,6 +1,7 @@
 <div ng-include src="'views/top.html'"></div>
 <div class="accordion">
-    <div ng-repeat="presentation in presentations" class="accordion-group">
+    <input type="text" ng-model="search" placeholder="Search Presentations">
+    <div ng-repeat="presentation in presentations | filter:search" class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#collapse-{{presentation.id}}">{{presentation.title}}</a>
         </div>
