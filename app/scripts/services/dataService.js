@@ -16,33 +16,26 @@ aerogearDevnexusApp.factory( "dataService", function() {
                 storageType: "localStorage"
             }
         }).stores.speakers,
-        speakerSaved: AeroGear.DataManager({
-            name: "speakerSaved",
-            type: "SessionLocal",
-            settings: {
-                storageType: "localStorage"
-            }
-        }).stores.speakerSaved,
         presentationPipe: AeroGear.Pipeline({
-            name: "sessions",
+            name: "presentations",
             settings: {
                 baseURL: "http://devnexus.com/s/",
                 endpoint: "presentations.json"
             }
-        }).pipes.sessions,
+        }).pipes.presentations,
         presentationStore: AeroGear.DataManager({
-            name: "sessions",
+            name: "presentations",
             type: "SessionLocal",
             settings: {
                 storageType: "localStorage"
             }
-        }).stores.sessions,
-        presentationSaved: AeroGear.DataManager({
-            name: "sessionSaved",
+        }).stores.presentations,
+        dataSaved: AeroGear.DataManager({
+            name: "dataSaved",
             type: "SessionLocal",
             settings: {
                 storageType: "localStorage"
             }
-        }).stores.sessionSaved
-    };
+        }).stores.dataSaved
+    }
 });

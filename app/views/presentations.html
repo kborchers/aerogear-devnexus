@@ -4,7 +4,7 @@
         <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#collapse-{{presentation.id}}">{{presentation.title}}</a>
         </div>
-        <div id="collapse-{{presentation.id}}" class="accordion-body collapse" ng-class="{in : open == presentation.id}">
+        <div id="collapse-{{presentation.id}}" class="accordion-body collapse" ng-class="{in : open == presentation.id}" jump-to="open, 'presentation'">
             <div class="accordion-inner">
                 <div ng-bind-html="converter.makeHtml(presentation.description)"></div>
                 <div>

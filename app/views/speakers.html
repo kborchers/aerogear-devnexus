@@ -4,7 +4,7 @@
         <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#collapse-{{speaker.id}}">{{speaker.firstName}} {{speaker.lastName}}</a>
         </div>
-        <div id="collapse-{{speaker.id}}" class="accordion-body collapse" ng-class="{in : open == speaker.id}" jump-to="open">
+        <div id="collapse-{{speaker.id}}" class="accordion-body collapse" ng-class="{in : open == speaker.id}" jump-to="open, 'speaker'">
             <div class="accordion-inner">
                 <div class="speaker-photo">
                     <img src="http://devnexus.com/s/speakers/{{speaker.id}}.jpg"/>
@@ -13,6 +13,12 @@
                     </div>
                 </div>
                 <div ng-bind-html="converter.makeHtml(speaker.bio)"></div>
+                <ul ng-repeat="session in speakerSessions(speaker.id)">
+                    <strong ng-show="$first">Presentations</strong>
+                    <li>
+                        <a href="#/sessions/{{session.id}}">{{session.title}}</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

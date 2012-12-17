@@ -1,19 +1,15 @@
 "use strict";
 
-aerogearDevnexusApp.controller( "SpeakersPresentationsCtrl", [ "$scope", "$routeParams", "$location", "dataService", function( $scope, $routeParams, $location, dataService ) {
-    var viewName, offlineData, saved,
+aerogearDevnexusApp.controller( "SpeakersPresentationsCtrl", [ "$scope", "$routeParams", "dataService", "$log", function( $scope, $routeParams, dataService, $log ) {
+    var offlineSpeakers, offlinePresentations, saved, speakerDeferred, presentationDeferred,
         // Offline Data expires after 1 hour
         expireTime = 3600000,
         today = (new Date()).getTime();
 
-    if ( $location.$$path.indexOf( "speakers" ) >= 0 ) {
-        viewName = "speaker";
-    } else {
-        viewName = "presentation";
-    }
-
-    offlineData = dataService[ viewName + "Store" ].read();
-    saved = dataService[ viewName + "Saved" ].read();
+    // Get offline data
+    offlineSpeakers = dataService.speakerStore.read();
+    offlinePresentations = dataService.presentationStore.read();
+    saved = dataService.dataSaved.read();
 
     // Set the open collapse panel
     $scope.open = $routeParams.id;
@@ -22,28 +18,47 @@ aerogearDevnexusApp.controller( "SpeakersPresentationsCtrl", [ "$scope", "$route
     $scope.converter = new Markdown.Converter();
 
     // Update data
-    if ( offlineData && offlineData.length && ( today - saved[ 0 ] ) < expireTime ) {
-        $scope[ viewName + "s" ] = offlineData;
+    if ( offlineSpeakers && ( today - saved[ 0 ] ) < expireTime ) {
+        $scope.speakers = offlineSpeakers;
+        $scope.presentations = offlinePresentations;
     } else {
-        dataService[ viewName + "Pipe" ].read({
+        speakerDeferred = dataService.speakerPipe.read({
             jsonp: {
                 callback: "jsonp",
-                customCallback: "handleMatterhornData"
-            },
-            success: function( data ) {
-                dataService[ viewName + "Store" ].save( data[ viewName + "List" ][ viewName ], { reset: true } );
-                dataService[ viewName + "Saved" ].save( (new Date()).getTime(), { reset: true } );
-                $scope[ viewName + "s" ] = data[ viewName + "List" ][ viewName ];
-                $scope.$apply();
-            },
-            error: function( data ) {
-                if ( offlineData && offlineData.length ) {
-                    $scope[ viewName + "s" ] = offlineData[ 0 ][ viewName ];
-                    $scope.$apply();
-                } else {
-                    $log('error');
-                }
+                customCallback: "speakerCallback"
             }
         });
+        presentationDeferred = dataService.presentationPipe.read({
+            jsonp: {
+                callback: "jsonp",
+                customCallback: "presentationCallback"
+            }
+        });
+
+        jQuery.when( speakerDeferred, presentationDeferred )
+            .done( function( speakerResponse, presentationResponse ) {
+                dataService.dataSaved.save( (new Date()).getTime(), { reset: true } );
+
+                // Update Speaker data
+                dataService.presentationStore.save( presentationResponse[ 0 ].presentationList.presentation, { reset: true } );
+                $scope.presentations = presentationResponse[ 0 ].presentationList.presentation;
+
+                // Update Speaker data
+                dataService.speakerStore.save( speakerResponse[ 0 ].speakerList.speaker, { reset: true } );
+                $scope.speakers = speakerResponse[ 0 ].speakerList.speaker;
+
+                $scope.$apply();
+            })
+            .fail( function( speakerResponse, presentationResponse ) {
+                $log.log(presentationResponse[ 0 ],speakerResponse[ 0 ]);
+            });
     }
+
+    $scope.speakerSessions = function( speakerId ) {
+        return dataService.presentationStore.filter({
+            speaker: {
+                id: speakerId
+            }
+        });
+    };
 }]);
