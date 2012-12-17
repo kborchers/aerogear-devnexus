@@ -54,7 +54,7 @@ aerogearDevnexusApp.controller( "SpeakersPresentationsCtrl", [ "$scope", "$route
             });
     }
 
-    $scope.speakerSessions = function( speakerId ) {
+    $scope.speakerPresentations = function( speakerId ) {
         return dataService.presentationStore.filter({
             speaker: {
                 id: speakerId

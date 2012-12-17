@@ -15,11 +15,11 @@ var aerogearDevnexusApp = angular.module( "aerogearDevnexusApp", [ "ngSanitize" 
                     templateUrl: "views/speakers.html",
                     controller: "SpeakersPresentationsCtrl"
                 })
-                .when("/sessions", {
+                .when("/presentations", {
                     templateUrl: "views/presentations.html",
                     controller: "SpeakersPresentationsCtrl"
                 })
-                .when( "/sessions/:id", {
+                .when( "/presentations/:id", {
                     templateUrl: "views/presentations.html",
                     controller: "SpeakersPresentationsCtrl"
                 })

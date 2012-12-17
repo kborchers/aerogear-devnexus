@@ -14,10 +14,10 @@
                     </div>
                 </div>
                 <div ng-bind-html="converter.makeHtml(speaker.bio)"></div>
-                <div ng-repeat="session in speakerSessions(speaker.id)">
+                <div ng-repeat="presentation in speakerPresentations(speaker.id)">
                     <strong ng-show="$first">Presentations</strong>
                     <div class="indent">
-                        <a href="#/sessions/{{session.id}}">{{session.title}}</a>
+                        <a href="#/presentations/{{presentation.id}}">{{presentation.title}}</a>
                     </div>
                 </div>
             </div>
