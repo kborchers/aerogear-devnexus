@@ -1,5 +1,39 @@
 /* Will be compiled down to a single stylesheet with your sass files */
 
+.container {
+    background-image: url('/img/devnexus-logo.png');
+    background-repeat: no-repeat;
+    background-position: right -80px;
+    background-size: 45%;
+}
+
+.container > div:first-child {
+    padding-top: 80px;
+}
+
+.accordion, .home-content {
+    border: 2px solid #e5e5e5;
+    padding: 20px;
+    margin-top: -1px;
+}
+
+.accordion-group {
+    background-color: #ffffff;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+}
+
+.nav-tabs > li.active {
+    margin-bottom: -2px;
+}
+
+.nav-tabs > li.active > a,.nav-tabs > li.active > a:hover {
+    border: 2px solid #e5e5e5;
+    border-bottom-color: transparent;
+}
+
 .speaker-photo {
     float: right;
     margin: 5px;
@@ -12,4 +46,42 @@
 
 .indent {
     margin: 5px 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .container {
+        background-size: 55%;
+    }
+}
+
+@media (max-width: 979px) {
+    .container {
+        background-size: 70%;
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        background-size: 70%;
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 640px) {
+    .container {
+        background-size: 80%;
+        background-position: right -40px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
 }
