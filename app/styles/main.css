@@ -1,7 +1,7 @@
 /* Will be compiled down to a single stylesheet with your sass files */
 
 .container {
-    background-image: url('/img/devnexus-logo.png');
+    background-image: url('../img/devnexus-logo.png');
     background-repeat: no-repeat;
     background-position: right -80px;
     background-size: 45%;
