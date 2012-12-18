@@ -1,41 +1,59 @@
 "use strict";
 
 aerogearDevnexusApp.factory( "dataService", function() {
-    return {
-        speakerPipe: AeroGear.Pipeline({
+    var pipeline = AeroGear.Pipeline([
+        {
             name: "speakers",
             settings: {
                 baseURL: "http://devnexus.com/s/",
                 endpoint: "speakers.json"
             }
-        }).pipes.speakers,
-        speakerStore: AeroGear.DataManager({
-            name: "speakers",
-            type: "SessionLocal",
-            settings: {
-                storageType: "localStorage"
-            }
-        }).stores.speakers,
-        presentationPipe: AeroGear.Pipeline({
+        },
+        {
             name: "presentations",
             settings: {
                 baseURL: "http://devnexus.com/s/",
                 endpoint: "presentations.json"
             }
-        }).pipes.presentations,
-        presentationStore: AeroGear.DataManager({
+        },
+        {
+            name: "tweets",
+            settings: {
+                baseURL: "http://search.twitter.com/",
+                endpoint: "search.json"
+            }
+        }
+        ]),
+        dataManager = AeroGear.DataManager([
+            {
+            name: "speakers",
+            type: "SessionLocal",
+            settings: {
+                storageType: "localStorage"
+            }
+        },
+        {
             name: "presentations",
             type: "SessionLocal",
             settings: {
                 storageType: "localStorage"
             }
-        }).stores.presentations,
-        dataSaved: AeroGear.DataManager({
+        },
+        {
             name: "dataSaved",
             type: "SessionLocal",
             settings: {
                 storageType: "localStorage"
             }
-        }).stores.dataSaved
-    }
+        }
+        ]);
+
+    return {
+        speakerPipe: pipeline.pipes.speakers,
+        speakerStore: dataManager.stores.speakers,
+        presentationPipe: pipeline.pipes.presentations,
+        presentationStore: dataManager.stores.presentations,
+        dataSaved: dataManager.stores.dataSaved,
+        twitterPipe: pipeline.pipes.presentations
+    };
 });
