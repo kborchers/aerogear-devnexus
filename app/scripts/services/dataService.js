@@ -54,6 +54,6 @@ aerogearDevnexusApp.factory( "dataService", function() {
         presentationPipe: pipeline.pipes.presentations,
         presentationStore: dataManager.stores.presentations,
         dataSaved: dataManager.stores.dataSaved,
-        twitterPipe: pipeline.pipes.presentations
+        twitterPipe: pipeline.pipes.tweets
     };
 });
