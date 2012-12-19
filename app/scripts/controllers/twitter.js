@@ -57,7 +57,6 @@ aerogearDevnexusApp.controller( "TwitterCtrl", [ "$scope", "dataService", "$filt
     };
 
     $scope.$on( "parentScroll", function( attr ) {
-        console.log(doc.scrollTop(), $( window ).height(), doc.outerHeight());
         if ( doc.scrollTop() + $( window ).height() >= doc.outerHeight() ) {
             $scope.loadTweets();
             $scope.stopRequests = true;
