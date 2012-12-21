@@ -15,6 +15,7 @@
     border: 2px solid #e5e5e5;
     padding: 20px;
     margin-top: -1px;
+    min-height: 150px;
 }
 
 .accordion-group {
@@ -49,7 +50,7 @@
 }
 
 .tweet-body {
-    background-color: #ffffff;
+    background-color: rgba(211, 119, 3, 0.15);
     color: #000000;
     margin: 5px 0 10px 0;
     border: 1px solid #e5e5e5;
@@ -63,21 +64,24 @@
     text-decoration: none;
 }
 
-.tweet-text {
-    margin-top: 12px;
-}
-
 .tweet-time {
-    position: absolute;
-    top: 3px;
-    right: 3px;
     font-size: 11px;
-    color: #cccccc;
+    color: #aaaaaa;
 }
 
 .twitter-image {
     float: left;
     margin-right: 10px;
+}
+
+.loader {
+    opacity: 0.25;
+    filter: alpha(opacity=25);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    top: 50%;
+    margin: -23px 0 0 -23px;
 }
 
 .footer {

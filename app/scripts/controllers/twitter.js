@@ -23,7 +23,8 @@ aerogearDevnexusApp.controller( "TwitterCtrl", [ "$scope", "dataService", "$filt
             return;
         } else {
             query = {
-                q: "devnexus"
+                q: "devnexus",
+                include_entities: 1
             };
         }
 
@@ -31,13 +32,13 @@ aerogearDevnexusApp.controller( "TwitterCtrl", [ "$scope", "dataService", "$filt
             query: query,
             jsonp: true,
             success: function( data ) {
-                $scope.tweets = $scope.tweets.concat( data.results );
+                $scope.tweets = $scope.tweets.concat( $scope.processTweets( data.results ) );
                 $scope.nextPage = data[ "next_page" ];
-                $scope.$apply();
             },
             complete: function() {
                 $scope.loader = false;
                 $scope.stopRequests = false;
+                $scope.$apply();
             }
         });
     };
@@ -54,6 +55,16 @@ aerogearDevnexusApp.controller( "TwitterCtrl", [ "$scope", "dataService", "$filt
         } else {
             return prettyDate( time );
         }
+    };
+
+    $scope.processTweets = function( tweets ) {
+        var tweet;
+
+        for ( tweet in tweets ) {
+            tweets[ tweet ].text = linkify_entities( tweets[ tweet ] );
+        }
+
+        return tweets;
     };
 
     $scope.$on( "parentScroll", function( attr ) {

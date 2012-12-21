@@ -2,8 +2,11 @@
 <div class="tab-content">
     <div ng-repeat="tweet in tweets" class="tweet-body">
         <img src="{{tweet.profile_image_url}}" class="twitter-image" />
-        <div class="tweet-text">{{tweet.text}}</div>
-        <div class="tweet-time">{{formatDate(tweet.created_at)}}</div>
+        <div class="tweet-info">
+            {{tweet.from_user_name}} <a href="http://twitter.com/{{tweet.from_user}}" target="_blank">@{{tweet.from_user}}</a>&nbsp;-&nbsp;<a href="http://twitter.com/{{tweet.from_user}}/status/{{tweet.id}}" target="_blank"><span class="tweet-time">{{formatDate(tweet.created_at)}}</span></a>
+        </div>
+        <div class="tweet-text" ng-bind-html="tweet.text"></div>
     </div>
+    <img class="loader" src="img/ajax-loader.gif" ng-show="loader" />
 </div>
 <footer class="footer" ng-include src="'views/bottom.html'"></footer>
